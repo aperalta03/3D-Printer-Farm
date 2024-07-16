@@ -1,0 +1,30 @@
+@import '../../vars.css';
+
+/* Verification */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+    background-color: var(--color-bg);
+}
+.title {
+    font-size: 60px;
+    font-weight: 1000;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.queueBackgroundBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 70%;
+    background-color: black;
+    border-radius: 20px;
+    margin-bottom: 100px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}

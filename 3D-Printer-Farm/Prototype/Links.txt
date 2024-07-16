@@ -1,0 +1,5 @@
+HOW TO SEND FROM SLICER TO CONNECT: https://help.prusa3d.com/guide/sending-files-from-prusaslicer-to-prusalink_222961
+SENDGRID API KEY SIGN IN: USER: OpenHub, PSWD: OpenHub12345678.
+RECOVERY CODE FOR up: 64DU77H7EZMKAVW8L9Z4FPE2
+GMAIL: openhub3dprinters@gmail.com, PSWD: openhubprinters
+pikachu_0.4n_0.2mm_PLA_MK4_25m
