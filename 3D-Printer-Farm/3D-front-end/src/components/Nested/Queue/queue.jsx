@@ -1,68 +1,53 @@
-import React, { useEffect } from 'react';
-import { useQueue } from "@uidotdev/usehooks";
+import React, { useEffect, useState } from 'react';
+// import { useQueue } from "@uidotdev/usehooks";
 import { getImageUrl } from '../../../utils';
 import styles from './queue.module.css';
 
+import { db } from '../../../firebaseConfig';
+import { collection, query, onSnapshot } from 'firebase/firestore';
+
 export const QueueComponent = ({maxQueueSize, onStatusChange}) => {
+    const [queue, setQueue] = useState([]);
 
     /* QUEUE LOGIC */
-    const { add, remove, last, size, queue } = useQueue([]);
-
     useEffect(() => {
-      if (onStatusChange) {
-        onStatusChange(size >= maxQueueSize);
-      }
-    }, [size, maxQueueSize, onStatusChange]); 
-
-    const handleAdd = () => {
-        if (size < maxQueueSize) {
-            add((last || 0) + 1);
+      const q = query(collection(db, 'verificationQueue'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const newQueue = snapshot.docs.map(doc => doc.data());
+        setQueue(newQueue);
+        if (onStatusChange) {
+          onStatusChange(newQueue.length >= maxQueueSize);
         }
-    };
-
-    const handleRemove = () => {
-        if (size > 0) {
-            remove();
-        }
-    };
-    
-    const isQueueMaxed = size >= maxQueueSize;
+      });
+      return unsubscribe;
+    }, [maxQueueSize, onStatusChange]);
 
     return (
-        <div className={styles.container}>
-            <div className={styles.queue}>
-                <Queue queue={queue} size={size} />
-            </div>
-            <div className={styles.controls}>
-                <button className={styles.btn} onClick={handleAdd} disabled={isQueueMaxed}>
-                    Add
-                </button>
-                <button className={styles.btn} onClick={handleRemove} disabled={size === 0}>
-                    Remove
-                </button>
-            </div>
+      <div className={styles.container}>
+        <div className={styles.queue}>
+          <Queue queue={queue} />
         </div>
+      </div>
     );
 }
+
 {/* TODO ADD G CODE PREVIEW FOR IMAGE */}
 function Queue({ queue }) {
-    return (
-      <figure>
-        <article>
-          <ul className={styles.queueContainer}>
-            {queue.map((item, i) => {
-              return (
-                <div key={i} className={styles.queueItem}>
-                    {/* TODO */}
-                  <img src={getImageUrl(`queue/item${item}.png`)} alt={`Item ${item}`} />
-                  <div className={styles.itemText}>
-                    <p>{`Time`}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </ul>
-        </article>
-      </figure>
-    );
+  return (
+    <figure>
+      <article>
+        <ul className={styles.queueContainer}>
+          {queue.map((item, i) => (
+            <div key={i} className={styles.queueItem}>
+              <img src={getImageUrl(`queue/item${item.fileURL}.png`)} alt={`Item ${i}`} />
+              <div className={styles.itemText}>
+                <p>{item.title}</p>
+                <p>{item.duration}</p>
+              </div>
+            </div>
+          ))}
+        </ul>
+      </article>
+    </figure>
+  );
 }

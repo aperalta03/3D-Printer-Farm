@@ -6,19 +6,32 @@ import { PrinterList } from './components/PrinterList/printerList';
 import { UploadBox } from './components/UploadBox/uploadbox';
 import { Verification } from './components/Verification/verification';
 
+import { Routes, Route } from 'react-router-dom';
+import { SignIn } from './components/SignIn/signin';
+import { ProtectedRoute } from './components/ProtectedRoute/protectedroute';
+
 function App() {
   return (
     <PrinterProvider>
       <div className={styles.App}>
-        {/*<Navbar />*/}
-        <Header />
-        <PrinterList />
-        <UploadBox />
-        {/*<PrinterStatus />*/}
-        <Verification />
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <div className={styles.App}>
+                  <Header />
+                  <PrinterList />
+                  <UploadBox />
+                  <Verification />
+                </div>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </div>
     </PrinterProvider>
-    
   )
 }
 
