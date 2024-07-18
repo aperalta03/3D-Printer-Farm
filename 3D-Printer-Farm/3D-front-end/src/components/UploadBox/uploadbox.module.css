@@ -18,7 +18,7 @@
     flex-direction: row;
     width: 50%;
     border-radius: 15px;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-bottom: 30px;
     align-items: center;
     box-shadow: 0 0 15px rgba(0, 0, 0, 1);
@@ -26,21 +26,18 @@
 .uploadText {
     font-size: 30px;
 }
-.uploadBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    border-radius: 10px;
-    border: solid;
-    padding: 5px;
-    cursor: pointer;
-}
 .upload {
     color: var(--color-secondary);
     font-size: 20px;
 }
-
+.uploadButton {
+    background-color: var(--color-bg);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--color-primary);
+}
 .message {
     color: var(--color-primary);
     margin-bottom: 20px;

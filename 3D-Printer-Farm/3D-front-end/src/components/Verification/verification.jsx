@@ -8,7 +8,7 @@ export const Verification = () => {
         <section className={styles.container}>
             <h3 className={styles.title}>Verification Queue</h3>
             <div className={styles.queueBackgroundBox}>
-                <QueueComponent maxQueueSize={8} />
+                <QueueComponent maxQueueSize={8} collectionName= "verificationQueue" />
             </div>
         </section>
     )

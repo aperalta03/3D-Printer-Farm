@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-// import { useQueue } from "@uidotdev/usehooks";
 import { getImageUrl } from '../../../utils';
 import styles from './queue.module.css';
-
-import { db } from '../../../firebaseConfig';
+import { db } from '../../../firebaseConfig.mjs';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 
-export const QueueComponent = ({maxQueueSize, onStatusChange}) => {
+export const QueueComponent = ({maxQueueSize, onStatusChange, collectionName }) => {
     const [queue, setQueue] = useState([]);
 
     /* QUEUE LOGIC */
     useEffect(() => {
-      const q = query(collection(db, 'verificationQueue'));
+      const q = query(collection(db, collectionName));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const newQueue = snapshot.docs.map(doc => doc.data());
         setQueue(newQueue);
@@ -20,7 +18,7 @@ export const QueueComponent = ({maxQueueSize, onStatusChange}) => {
         }
       });
       return unsubscribe;
-    }, [maxQueueSize, onStatusChange]);
+    }, [maxQueueSize, onStatusChange, collectionName]);
 
     return (
       <div className={styles.container}>

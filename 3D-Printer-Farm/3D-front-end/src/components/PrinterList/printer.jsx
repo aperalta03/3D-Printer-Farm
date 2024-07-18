@@ -1,4 +1,3 @@
-/* PRINTER LIST OBJECT */
 import React, { useContext } from 'react';
 import styles from './printer.module.css';
 import { getImageUrl } from '../../utils';
@@ -31,7 +30,11 @@ export const Printer = ({
                     <li className={styles.printerDetail}> {`IP Address: ${ip}`} </li>
                     <li className={styles.printerDetail}> {`Key: ${key}`} </li>
                 </div>
-                <QueueComponent maxQueueSize={2} onStatusChange={handleQueueStatusChange}/>
+                <QueueComponent 
+                    maxQueueSize={2} 
+                    onStatusChange={handleQueueStatusChange} 
+                    collectionName={`printers/printer${number}/queue`} // Update collection name format here
+                />
                 {/* COLOR PALETTE */}
 
                 {/* */}
