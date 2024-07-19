@@ -82,11 +82,11 @@ router.post('/upload-gcode', upload.single('file'), async (req, res) => {
 
         console.log('GCode parsed successfully');
 
-        const verificationCode = uuidv4(); // Generate unique verification code
+        const verificationCode = uuidv4();
 
         await addDoc(verificationQueueRef, {
             printer: selectedPrinter,
-            fileURL,  // Ensure fileURL is included here
+            fileURL,
             timestamp: new Date(),
             title: file.originalname,
             duration: printingTime || "Unknown",

@@ -40,14 +40,14 @@ export const generateEmailContent = (printer, gcodeDetails, verificationCode) =>
                             text-decoration: none; 
                             border-radius: 5px; 
                             margin-right: 10px;">
-                Validate</a>
+                ACCEPT</a>
                 <a href="http://localhost:5000/invalidate/${verificationCode}" 
                     style=" display: inline-block; 
                             padding: 10px 20px; background-color: #f44336; 
                             color: white; 
                             text-decoration: none; 
                             border-radius: 5px;">
-                Invalidate</a>
+                DENY</a>
             </div>
         </div>
     `;
