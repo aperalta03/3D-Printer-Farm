@@ -16,33 +16,11 @@
     width: 95%;
     margin: 10px 0;
 }
-/* TODO - SHOULD NOT EXIST */
-.controls {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: -20%;
-    margin: 10px 0;
-}
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-.btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
 /* Queue Objects*/
 .queueContainer {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-
     flex-wrap: wrap;
 }
 .queueItem {
@@ -56,19 +34,48 @@
     border-radius: 10px;
     width: 250px;
     flex: 1 0 20%;
+    overflow: hidden;
 }
-.queueItem img {
-    width: 100%;
+.thumbnail {
+    width: 50%;
     height: 100px;
     object-fit: cover;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px 0 0 10px;
 }
 .itemText {
     background-color: white;
-    width: 70%;
+    width: 50%;
     height: 100%;
     padding: 5px;
     text-align: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 0 10px 10px 0;
+}
+.itemTitleBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%; /* Adjusted height for better fitting */
+    overflow: hidden;
+}
+.itemTitleBox h1 {
+    font-size: 16px; /* Adjust font size as needed */
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word; /* Wrap text */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Ellipsis for overflow text */
+    max-height: 100%; /* Ensure it fits within the box */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Adjust the number of lines as needed */
+    -webkit-box-orient: vertical;
+}
+.itemDetailsBox {
+    height: 30%; /* Adjusted height for better fitting */
+}
+.itemDetailsBox p {
+    margin: 0;
+    padding: 0;
+    font-weight: 1000;
 }

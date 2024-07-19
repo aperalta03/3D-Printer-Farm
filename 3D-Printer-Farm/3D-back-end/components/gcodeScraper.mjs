@@ -1,4 +1,5 @@
 import fs from 'fs';
+import base64 from 'base-64';
 
 class GCode {
     constructor(filename) {

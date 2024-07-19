@@ -1,12 +1,16 @@
 import { db, query, collection, where, getDocs, deleteDoc } from '../../3D-front-end/src/firebaseConfig.mjs';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import { generateDenialEmailContent } from './emailContent.mjs';
+
+dotenv.config(); // Ensure this is called to load environment variables
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.openhub.be',
     port: 587,
     secure: false,
     auth: {
-        user: '3dprinters@openhub.be',
+        user: process.env.EMAIL_USER, // Ensure these are correctly set in your .env file
         pass: process.env.EMAIL_PASS,
     },
     tls: {
@@ -28,11 +32,14 @@ export async function invalidatePrintJob(req, res) {
 
             await deleteDoc(doc.ref);
 
+            // Generate denial email content
+            const emailText = generateDenialEmailContent(title);
+
             const mailOptions = {
                 from: '3dprinters@openhub.be',
                 to: userEmail,
                 subject: 'Print Job Denied',
-                text: `Your print job "${title}" was denied. Please verify with the head engineer and re-send the print.`,
+                text: emailText,
             };
 
             transporter.sendMail(mailOptions, (error, info) => {

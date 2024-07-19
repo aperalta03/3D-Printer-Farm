@@ -1,16 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './printer.module.css';
 import { getImageUrl } from '../../utils';
 import { QueueComponent } from '../Nested/Queue/queue';
 import PrinterContext from '../Nested/Context/printercontext';
 
-export const Printer = ({
-    printer: {number, ip, key}
-}) => {
+export const Printer = ({ printer: { number, ip, key } }) => {
     const { handleSelectPrinter } = useContext(PrinterContext);
 
-    {/* STATUS BOX LOGIC */}
-    const [isQueueMaxed, setIsQueueMaxed] = React.useState(false);
+    const [isQueueMaxed, setIsQueueMaxed] = useState(false);
     const handleQueueStatusChange = (isMaxed) => {
         setIsQueueMaxed(isMaxed);
     };
@@ -33,11 +30,8 @@ export const Printer = ({
                 <QueueComponent 
                     maxQueueSize={2} 
                     onStatusChange={handleQueueStatusChange} 
-                    collectionName={`printers/printer${number}/queue`} // Update collection name format here
+                    collectionName={`printers/printer${number}/queue`} 
                 />
-                {/* COLOR PALETTE */}
-
-                {/* */}
             </div>
             <div className={styles.statusContainer}>
                 <div className={styles.statusBox} style={{ backgroundColor: isQueueMaxed ? 'red' : 'green' }}> </div>

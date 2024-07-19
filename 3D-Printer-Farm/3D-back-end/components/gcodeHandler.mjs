@@ -93,16 +93,22 @@ router.post('/upload-gcode', upload.single('file'), async (req, res) => {
             printingTime,
             infill,
             settings,
-            supports,
-            thumbnail
+            supports
         }, verificationCode);
 
-        // SENDING EMAIL
+        // Create the email
         const mailOptions = {
             from: '3dprinters@openhub.be',  // Sender email
             to: currentUserEmail, // Recipient email
             subject: 'New File Uploaded',
             html: emailText, // Use generated email text as HTML
+            attachments: [
+                {
+                    filename: 'thumbnail.png',
+                    content: Buffer.from(thumbnail, 'base64'),
+                    cid: 'thumbnail'
+                }
+            ]
         };
 
         transporter.sendMail(mailOptions, (error, info) => {

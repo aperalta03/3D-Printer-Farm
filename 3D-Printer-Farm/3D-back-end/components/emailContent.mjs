@@ -8,8 +8,7 @@ export const generateEmailContent = (printer, gcodeDetails, verificationCode) =>
         printingTime,
         infill,
         settings,
-        supports,
-        thumbnail
+        supports
     } = gcodeDetails;
 
     return `
@@ -33,10 +32,18 @@ export const generateEmailContent = (printer, gcodeDetails, verificationCode) =>
         <br>
         Supports: ${supports ? 'Yes' : 'No'}
         <br>
-        <img src="data:image/png;base64,${thumbnail}" alt="Thumbnail"/>
+        <img src="cid:thumbnail" alt="Thumbnail" />
         <br><br>
         <a href="http://localhost:5000/validate/${verificationCode}">Validate</a>
         <br>
         <a href="http://localhost:5000/invalidate/${verificationCode}">Invalidate</a>
     `;
+};
+
+export const generateAcceptanceEmailContent = (title) => {
+    return `Your print job "${title}" has been accepted and moved to the printer queue.`;
+};
+
+export const generateDenialEmailContent = (title) => {
+    return `Your print job "${title}" was denied. Please verify with the head engineer and re-send the print.`;
 };
