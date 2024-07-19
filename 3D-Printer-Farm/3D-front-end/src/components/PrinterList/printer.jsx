@@ -3,6 +3,7 @@ import styles from './printer.module.css';
 import { getImageUrl } from '../../utils';
 import { QueueComponent } from '../Nested/Queue/queue';
 import PrinterContext from '../Nested/Context/printercontext';
+import ColorPalette from '../Nested/Color/color';
 
 export const Printer = ({ printer: { number, ip, key } }) => {
     const { handleSelectPrinter } = useContext(PrinterContext);
@@ -27,12 +28,21 @@ export const Printer = ({ printer: { number, ip, key } }) => {
                     <li className={styles.printerDetail}> {`IP Address: ${ip}`} </li>
                     <li className={styles.printerDetail}> {`Key: ${key}`} </li>
                 </div>
+            </div>
+            <div className={styles.queueContainer}>
                 <QueueComponent 
                     maxQueueSize={2} 
                     onStatusChange={handleQueueStatusChange} 
                     collectionName={`printers/printer${number}/queue`} 
                 />
             </div>
+            {/* Color Palette */}
+            <div className={styles.colorContainer}>
+                <ColorPalette
+                    printerNumber={number} 
+                />
+            </div>
+            {/* Color Palette */}
             <div className={styles.statusContainer}>
                 <div className={styles.statusBox} style={{ backgroundColor: isQueueMaxed ? 'red' : 'green' }}> </div>
             </div>

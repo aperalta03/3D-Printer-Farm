@@ -1,7 +1,7 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import nodemailer from 'nodemailer';
-import { db, collection, addDoc } from '../../3D-front-end/src/firebaseConfig.mjs';
+import { db, collection, addDoc, getDocs, query, where } from '../../3D-front-end/src/firebaseConfig.mjs';
 import GCode from './gcodeScraper.mjs';
 import { generateEmailContent } from './emailContent.mjs';
 import multer from 'multer';
@@ -27,6 +27,9 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+const MAX_VERIFICATION_QUEUE_SIZE = 8;
+const MAX_PRINTER_QUEUE_SIZE = 2;
+
 router.post('/upload-gcode', upload.single('file'), async (req, res) => {
     try {
         const { selectedPrinter, currentUserEmail } = req.body;
@@ -34,6 +37,26 @@ router.post('/upload-gcode', upload.single('file'), async (req, res) => {
 
         if (!file) {
             throw new Error('File not found');
+        }
+
+        // Check the size of the verification queue
+        const verificationQueueRef = collection(db, 'verificationQueue');
+        const verificationQueueSnapshot = await getDocs(verificationQueueRef);
+
+        // Check the number of items in the verification queue for the selected printer
+        const printerInVerificationQueueQuery = query(verificationQueueRef, where('printer', '==', selectedPrinter));
+        const printerInVerificationQueueSnapshot = await getDocs(printerInVerificationQueueQuery);
+
+        if (verificationQueueSnapshot.size >= MAX_VERIFICATION_QUEUE_SIZE) {
+            return res.status(400).json({ error: 'Verification queue is full, please try again later.' });
+        }
+
+        // Check the size of the selected printer queue
+        const printerQueueRef = collection(db, `printers/printer${selectedPrinter}/queue`);
+        const printerQueueSnapshot = await getDocs(printerQueueRef);
+
+        if (printerQueueSnapshot.size + printerInVerificationQueueSnapshot.size >= MAX_PRINTER_QUEUE_SIZE) {
+            return res.status(400).json({ error: 'Selected printer queue is full, please choose another printer.' });
         }
 
         console.log('File uploaded:', file);
@@ -61,8 +84,7 @@ router.post('/upload-gcode', upload.single('file'), async (req, res) => {
 
         const verificationCode = uuidv4(); // Generate unique verification code
 
-        const queueRef = collection(db, 'verificationQueue');
-        await addDoc(queueRef, {
+        await addDoc(verificationQueueRef, {
             printer: selectedPrinter,
             fileURL,  // Ensure fileURL is included here
             timestamp: new Date(),

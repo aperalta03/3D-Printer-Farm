@@ -41,7 +41,7 @@ function Queue({ queue }) {
                             />
                             <div className={styles.itemText}>
                                 <div className={styles.itemTitleBox}>
-                                  <h1>{item.title.replace('.gcode', '')}</h1> {/* Remove .gcode from title */}
+                                  <h1>{item.title.replace('.gcode', '')}</h1>
                                 </div>
                                 <div className={styles.itemDetailsBox}>
                                   <p>{item.duration}</p>

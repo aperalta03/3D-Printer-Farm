@@ -35,14 +35,15 @@ export const UploadBox = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to process file on the server');
+                const result = await response.json();
+                throw new Error(result.error || 'Failed to process file on the server');
             }
 
             const result = await response.json();
             setMessage(result.message);
         } catch (error) {
             console.error('Error uploading file or processing GCode:', error);
-            setMessage(`Failed to upload file. Please try again. Error: ${error.message}`);
+            setMessage(`Failed to upload file. ${error.message}`);
         } finally {
             setLoading(false);
         }
