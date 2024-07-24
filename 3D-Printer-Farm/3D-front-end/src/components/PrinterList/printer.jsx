@@ -25,8 +25,8 @@ export const Printer = ({ printer: { number, ip, key } }) => {
             <div className={styles.printerDetailsContainer}>
                 <div className={styles.printerDetailsBox}>
                     <h3 className={styles.printerTitle}> {`Printer ${number}`} </h3>
-                    <li className={styles.printerDetail}> {`IP Address: ${ip}`} </li>
-                    <li className={styles.printerDetail}> {`Key: ${key}`} </li>
+                    {/* <li className={styles.printerDetail}> {`IP Address: ${ip}`} </li>
+                    <li className={styles.printerDetail}> {`Key: ${key}`} </li> */}
                 </div>
             </div>
             <div className={styles.queueContainer}>

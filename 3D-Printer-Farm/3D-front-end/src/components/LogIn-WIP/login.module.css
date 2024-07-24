@@ -1,0 +1,63 @@
+/* login.module.css */
+.logInContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+}
+
+.input {
+  width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.passwordContainer {
+  display: flex;
+  align-items: center;
+}
+
+.showPasswordButton {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logInButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: #ff0000;
+  margin-top: 10px;
+}
+
+.signupLink {
+  margin-top: 20px;
+  color: #28a745;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}

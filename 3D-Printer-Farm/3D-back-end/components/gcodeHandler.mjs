@@ -121,7 +121,7 @@ router.post('/upload-gcode', upload.single('file'), async (req, res) => {
         // Create the email
         const mailOptions = {
             from: '3dprinters@openhub.be',  // Sender email
-            to: currentUserEmail, // Recipient email
+            to: '3dprinters@openhub.be', // Recipient email
             subject: 'New File Uploaded',
             html: emailText, // Use generated email text as HTML
             attachments: [

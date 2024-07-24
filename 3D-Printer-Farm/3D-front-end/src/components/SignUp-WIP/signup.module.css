@@ -1,0 +1,58 @@
+.signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .signUpForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 10px 0;
+  }
+  
+  .inputGroup label {
+    margin-bottom: 5px;
+  }
+  
+  .inputGroup input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .togglePasswordButton {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .message {
+    color: #ff0000;
+    margin-top: 10px;
+  }
+  
+  .signUpButton {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
